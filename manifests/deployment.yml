@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weechat
+  labels:
+    app: weechat
+  namespace: weechat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weechat
+  template:
+    metadata:
+      name: weechat
+      labels:
+        app: weechat
+    spec:
+      containers:
+      - name: weechat
+        image: eu.gcr.io/xxxx/weechat:0.6
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: irclogs
+          mountPath: /home/maurits/irclogs
+        ports:
+        - name: ssh
+          containerPort: 22
+        - name: http
+          containerPort: 9000
+        - name: mosh
+          containerPort: 32016
+          protocol: UDP
+        env:
+        - name: SSH_PUBKEY
+          value: "ssh-rsa xxx maurits@xxxx.local"
+      volumes:
+      - name: irclogs
+        persistentVolumeClaim:
+          claimName: weechat-logs-storage

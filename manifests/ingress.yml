@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: weechat
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    kubernetes.io/ingress.class: "nginx"
+  namespace: weechat
+spec:
+  tls: # specify domains to fetch certificates for
+  - hosts:
+    - weechat.xxxxx.nl
+    secretName: weechat
+  rules:
+  - host: weechat.xxxxx.nl
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: weechat-urlserver
+            port:
+              number: 1234
