@@ -26,6 +26,6 @@ RUN mkdir -p /var/run/sshd &&\
 COPY --chown=maurits:maurits dotweechat /home/maurits/.weechat
 
 VOLUME ["/home/maurits/irclogs"]
-EXPOSE 22 1234 32016/udp
+EXPOSE 22 9000 32016/udp
 
 ENTRYPOINT ["/run.sh"]

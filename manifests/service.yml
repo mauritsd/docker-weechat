@@ -28,7 +28,7 @@ metadata:
   namespace: weechat
 spec:
   ports:
-    - port: 1234
+    - port: 9000
       name: http
   selector:
     app: weechat
